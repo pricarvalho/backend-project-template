@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "datasource.jdbcUrl",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.jdbcUrl'"
+  },
+  {
+    "name": "datasource.driver",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.driver'"
+  },
+  {
+    "name": "datasource.username",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.username'"
+  },
+  {
+    "name": "datasource.password",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.password'"
+  },
+  {
+    "name": "datasource.jdbcUrl",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.jdbcUrl'"
+  },
+  {
+    "name": "datasource.jdbc-url",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.jdbc-url'"
+  }
+]}

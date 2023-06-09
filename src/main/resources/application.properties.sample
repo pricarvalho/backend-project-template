@@ -1,0 +1,18 @@
+# PostgreSQL Database Configuration
+datasource.driver=org.postgresql.Driver
+datasource.jdbc-url=jdbc:postgresql://localhost:5432/my-database
+datasource.username=admin
+datasource.password=admin
+
+# Configure spring data source
+spring.datasource.driver-class-name=${datasource.driver}
+spring.datasource.url=${datasource.jdbc-url}
+spring.datasource.username=${datasource.username}
+spring.datasource.password=${datasource.password}
+
+# JOOQ
+spring.jooq.sql-dialect=postgres
+
+# Docker
+spring.docker.compose.enabled=false
+spring.docker.compose.file=./docker/compose.yaml
