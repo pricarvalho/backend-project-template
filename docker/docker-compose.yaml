@@ -13,12 +13,10 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
       - ./scripts/keycloak/init-database.sh:/docker-entrypoint-initdb.d/initdb.sh
     healthcheck:
       test: "exit 0"
-    networks:
-      - my_network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -35,13 +33,13 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    networks:
-        - my_network
   
   keycloak:
     image: quay.io/keycloak/keycloak:21.1.1
     container_name: keycloak
-    command: start-dev
+    command: 
+      - start-dev
+      - --import-realm
     environment:
         KEYCLOAK_ADMIN: admin
         KEYCLOAK_ADMIN_PASSWORD: admin
@@ -53,16 +51,17 @@ services:
         KC_DB_PASSWORD: keycloak
     ports:
       - "8180:8080"
+    volumes:
+      - ./scripts/keycloak/import:/opt/keycloak/data/import
     depends_on:
       postgres:
         condition: service_healthy
-    networks:
-      - my_network
 
 volumes:
-  postgres_data:
+  postgres-data:
   pgadmin4-data:
 
 networks:
-  my_network:
-    driver: bridge
+  default:
+    external: true
+    name: development
