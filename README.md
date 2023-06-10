@@ -19,16 +19,16 @@ This repository intend to help developers to startup their application faster.
 
 1. Clone the repo
 
-3. We need to start the docker containers to allow flyway and jooq work properly 
-    - Navegate to the `cd docker/` folder
-    - Run the `docker compose up` command
-    - Be sure the docker successfully started
+2. Setup the network and the application properties
+    - Run the `make setup` command
   
-3. Get back to the project root folder `cd ../`
+3. Start the dependencies with docker compose
+    - (OPTIONAL) if you have a json export file from KeyCloak installation, add it to the `/scripts/keycloak/import` folder
+    - Run the `make start` command  
 
-5. Now, we are going to compile the project to migrate the database scripts and generate the record entities
-    - Execute the command `mvn clean package` or `mvn clean install`
-    - Check the logs. It must compile with success
+4. Now, we are going to compile the project to migrate the database scripts and generate the record entities
+    - Run the `make local` command
+    - Check the logs. The application should have started succesfully
     - Check the `target/generated-sources` folder and if the database record entities were generated
   
 5. Go to the browser to access the follow consoles:

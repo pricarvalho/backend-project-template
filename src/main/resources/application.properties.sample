@@ -12,7 +12,3 @@ spring.datasource.password=${datasource.password}
 
 # JOOQ
 spring.jooq.sql-dialect=postgres
-
-# Docker
-spring.docker.compose.enabled=false
-spring.docker.compose.file=./docker/compose.yaml
