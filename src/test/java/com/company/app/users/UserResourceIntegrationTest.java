@@ -1,10 +1,10 @@
 package com.company.app.users;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -16,20 +16,16 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.val;
-
 @SpringBootTest
 @AutoConfigureMockMvc
-@ExtendWith(SpringExtension.class)
 @DisplayName("/users")
 public class UserResourceIntegrationTest {
 
@@ -52,10 +48,10 @@ public class UserResourceIntegrationTest {
         @Test
         @Order(1)
         void save_whenCreateAnUser_returns201() throws Exception {
-            val body = objectMapper.writeValueAsString(
+            final String body = objectMapper.writeValueAsString(
                     new UserRequest("Integration", "Test", "integration@test.com.br"));
 
-            val response = mvc.perform(post("/users")
+            final MvcResult response = mvc.perform(post("/users")
                     .contentType(APPLICATION_JSON)
                     .content(body))
                     .andExpect(status().isCreated())
@@ -84,7 +80,7 @@ public class UserResourceIntegrationTest {
         @Test
         @Order(3)
         public void update_whenUpateUser_returns200() throws Exception {
-            val body = objectMapper.writeValueAsString(
+            final String body = objectMapper.writeValueAsString(
                     new UserRequest("Integration", "Test", "integration@test.com"));
 
             mvc.perform(put("/users/" + userId)

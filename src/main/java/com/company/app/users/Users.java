@@ -13,11 +13,12 @@ import com.company.app.common.JooqRepository;
 import com.company.app.persistence.tables.records.UserRecord;
 import com.company.app.users.User.Email;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.val;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor(onConstructor_= {@Autowired})
 public class Users implements JooqRepository<UserRecord> {
 
     private final DSLContext context;

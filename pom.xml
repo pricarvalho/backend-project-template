@@ -176,6 +176,15 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>3.1.2</version>
 				<executions>
@@ -199,9 +208,6 @@
 					<excludes>
 						<exclude>**/*IntegrationTest*</exclude>
 					</excludes>
-					<additionalClasspathElements>
-						<additionalClasspathElement>classpath:application.properties</additionalClasspathElement>
-					</additionalClasspathElements>
 				</configuration>
 			</plugin>
 

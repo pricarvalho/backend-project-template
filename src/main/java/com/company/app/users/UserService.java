@@ -3,12 +3,13 @@ package com.company.app.users;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor(onConstructor_= {@Autowired})
 public class UserService {
 
     private final Users users;
