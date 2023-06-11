@@ -31,7 +31,7 @@ import lombok.val;
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 @DisplayName("/users")
-public class UserResourceTest {
+public class UserResourceIntegrationTest {
 
     @Autowired
     private UserResource userResource;
