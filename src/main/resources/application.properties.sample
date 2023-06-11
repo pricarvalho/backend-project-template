@@ -12,3 +12,6 @@ spring.datasource.password=${datasource.password}
 
 # JOOQ
 spring.jooq.sql-dialect=postgres
+
+# Swagger
+springdoc.swagger-ui.path=/swagger-ui
