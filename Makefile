@@ -13,7 +13,10 @@ restart: stop start
 # docker:
 # 	@./mvnw clean package -DskipTests
 
-local:
+compile:
+	@./mvnw clean package -DskipTests
+
+run:
 	@./mvnw spring-boot:run
 
 start:
