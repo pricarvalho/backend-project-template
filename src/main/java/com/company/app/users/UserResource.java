@@ -1,5 +1,7 @@
 package com.company.app.users;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -32,14 +32,14 @@ public class UserResource {
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable String id) {
         service.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     // curl -X POST -H 'Content-Type: application/json' -d '{"firstName": "John", "lastName": "Smith", "email": "john.smith@gmail.com"}' http://localhost:8080/users
     @PostMapping
-    public UserResponse save(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> save(@RequestBody UserRequest userRequest) {
         var user = service.save(userRequest);
-        return UserResponse.from(user);
+        return new ResponseEntity<UserResponse>(UserResponse.from(user), CREATED);
     }
 
     // curl -X PUT -H 'Content-Type: application/json' -d '{"firstName": "John", "lastName": "Smith", "email": "john.smith@hotmail.com"}' http://localhost:8080/users/{id}
