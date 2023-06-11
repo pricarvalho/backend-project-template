@@ -174,17 +174,36 @@
 					</execution>
 				</executions>
 			</plugin>
-
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.12.4</version>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>3.1.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
+					<includes>
+						<include>**/*IntegrationTest*</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.1.2</version>
+				<configuration>
+					<excludes>
+						<exclude>**/*IntegrationTest*</exclude>
+					</excludes>
 					<additionalClasspathElements>
-						<additionalClasspathElement>target/generated-sources/jooq</additionalClasspathElement>
+						<additionalClasspathElement>classpath:application.properties</additionalClasspathElement>
 					</additionalClasspathElements>
 				</configuration>
-			</plugin> -->
+			</plugin>
 
 		</plugins>
 	</build>
