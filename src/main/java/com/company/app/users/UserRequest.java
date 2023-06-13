@@ -14,6 +14,8 @@ public class UserRequest {
     private String lastName;
     @NonNull
     private String email;
+    @NonNull
+    private String password;
 
     public User toDomain() {
         return User.builder()

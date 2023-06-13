@@ -22,28 +22,24 @@ public class UserResource {
 
     private final UserService service;
 
-    // curl -X GET http://localhost:8080/users/{id}
+    @PostMapping
+    public ResponseEntity<UserResponse> create(@RequestBody UserRequest userRequest) {
+        var user = service.create(userRequest);
+        return new ResponseEntity<UserResponse>(UserResponse.from(user), CREATED);
+    }
+    
     @GetMapping("/{id}")
     public UserResponse get(@PathVariable String id) {
         var user = service.findById(id);
         return UserResponse.from(user);
     }
 
-    // curl -X DELETE http://localhost:8080/users/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable String id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
-    // curl -X POST -H 'Content-Type: application/json' -d '{"firstName": "John", "lastName": "Smith", "email": "john.smith@gmail.com"}' http://localhost:8080/users
-    @PostMapping
-    public ResponseEntity<UserResponse> save(@RequestBody UserRequest userRequest) {
-        var user = service.save(userRequest);
-        return new ResponseEntity<UserResponse>(UserResponse.from(user), CREATED);
-    }
-
-    // curl -X PUT -H 'Content-Type: application/json' -d '{"firstName": "John", "lastName": "Smith", "email": "john.smith@hotmail.com"}' http://localhost:8080/users/{id}
     @PutMapping("/{id}")
     public UserResponse update(@PathVariable String id, @RequestBody UserRequest userRequest) {
         var user = service.update(id, userRequest);

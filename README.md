@@ -42,7 +42,7 @@ This repository intend to help developers to startup their application faster.
   - **Swagger API**: http://localhost:8080/swagger-ui
 
   - **PgAdmin**: http://localhost:5050/login
-      - **use**r: admin@admin.com
+      - **use**: admin@admin.com
       - **password**: admin *(the same to connect to the database)*
       
   - **KeyCloak**: http://localhost:8180
