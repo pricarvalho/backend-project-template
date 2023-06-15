@@ -115,7 +115,6 @@
 							<createSchemas>true</createSchemas>
 							<schemas>
 								<schema>flyway</schema>
-								<schema>users</schema>
 							</schemas>
 							<table>schema_version</table>
 							<locations>
@@ -153,12 +152,9 @@
                                         org.jooq.meta.postgres.PostgresDatabase
 									</name>
 									<includes>.*</includes>
-									<excludes/>
-									<schemata>
-										<schema>
-											<inputSchema>users</inputSchema>
-										</schema>
-									</schemata>
+									<excludes>
+										(?i:information_schema\..*)|(?i:pg_catalog\..*)
+									</excludes>
 								</database>
 								<generate>
 									<pojos>false</pojos>
@@ -166,7 +162,7 @@
 									<fluentSetters>true</fluentSetters>
 								</generate>
 								<target>
-									<packageName>com.company.app.persistence</packageName>
+									<packageName>com.company.app.entities</packageName>
 									<directory>target/generated-sources/jooq</directory>
 								</target>
 							</generator>
