@@ -1,6 +1,6 @@
 # PostgreSQL Database Configuration
 datasource.driver=org.postgresql.Driver
-datasource.jdbc-url=jdbc:postgresql://localhost:5432/my-database
+datasource.jdbc-url=jdbc:postgresql://localhost:5432/my-app
 datasource.username=admin
 datasource.password=admin
 

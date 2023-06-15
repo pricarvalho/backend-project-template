@@ -1,26 +1,23 @@
 services:
   
-  postgres:
+  database:
     image: 'postgres:15.3'
-    container_name: postgres    
+    container_name: my-app-postgres    
     environment:
-        POSTGRES_DB: my-database
+        POSTGRES_DB: my-app
         POSTGRES_USER: admin
         POSTGRES_PASSWORD: admin
-        KEYCLOACK_DB_NAME: keycloak
-        KEYCLOACK_DB_USER: keycloak
-        KEYCLOACK_DB_PASS: keycloak
     ports:
       - "5432:5432"
     volumes:
-      - postgres-data:/var/lib/postgresql/data
-      - ./scripts/keycloak/init-database.sh:/docker-entrypoint-initdb.d/initdb.sh
+      - my-app-postgres-data:/var/lib/postgresql/data
+      # - ./scripts/keycloak/init-database.sh:/docker-entrypoint-initdb.d/initdb.sh
     healthcheck:
       test: "exit 0"
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: pgadmin
+    container_name: my-app-pgadmin
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
@@ -28,38 +25,15 @@ services:
     ports:
       - "5050:80"
     volumes:
-      - pgadmin4-data:/var/lib/pgadmin
+      - my-app-pgadmin4-data:/var/lib/pgadmin
       - ./scripts/pgadmin/servers.json:/pgadmin4/servers.json  
     depends_on:
-      postgres:
-        condition: service_healthy
-  
-  keycloak:
-    image: quay.io/keycloak/keycloak:21.1.1
-    container_name: keycloak
-    command: 
-      - start-dev
-      - --import-realm
-    environment:
-        KEYCLOAK_ADMIN: admin
-        KEYCLOAK_ADMIN_PASSWORD: admin
-        KC_DB: postgres
-        KC_DB_URL_HOST: postgres
-        KC_DB_URL_DATABASE: keycloak
-        KC_DB_SCHEMA: public
-        KC_DB_USERNAME: keycloak
-        KC_DB_PASSWORD: keycloak
-    ports:
-      - "8180:8080"
-    volumes:
-      - ./scripts/keycloak/import:/opt/keycloak/data/import
-    depends_on:
-      postgres:
+      database:
         condition: service_healthy
 
 volumes:
-  postgres-data:
-  pgadmin4-data:
+  my-app-postgres-data:
+  my-app-pgadmin4-data:
 
 networks:
   default:

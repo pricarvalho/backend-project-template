@@ -14,7 +14,6 @@ This repository intend to help developers to startup their application faster.
 - [Docker](https://www.docker.com/)
   - [PosgreSQL-15.3](https://www.postgresql.org/docs/current/index.html)
   - [PgAdmin-4](https://www.pgadmin.org/docs/pgadmin4/latest/index.html)
-  - [Keycloak](https://www.keycloak.org) - *Open Source Identity and Access Management*
 
 ## Usage
 
@@ -24,7 +23,6 @@ This repository intend to help developers to startup their application faster.
     - Execute the `make setup` command
   
 3. Start the dependencies with docker compose
-    - (OPTIONAL) if you have a json export file from KeyCloak installation, add it to the `/scripts/keycloak/import` folder
     - Execute the `make start` command  
 
 4. Now, we are going to compile the project to migrate the database scripts and generate the record entities
@@ -44,10 +42,3 @@ This repository intend to help developers to startup their application faster.
   - **PgAdmin**: http://localhost:5050/login
       - **use**r: admin@admin.com
       - **password**: admin *(the same to connect to the database)*
-      
-  - **KeyCloak**: http://localhost:8180
-    - **user:** admin
-    - **password:** admin
-
-Enjoy!
-=D
