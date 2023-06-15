@@ -1,5 +1,7 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+CREATE SCHEMA users;
+
 CREATE TABLE IF NOT EXISTS users.user (
     id uuid DEFAULT uuid_generate_v4(),
     first_name VARCHAR NOT NULL,

@@ -1,6 +1,6 @@
 package com.company.app.users;
 
-import static com.company.app.persistence.tables.User.USER;
+import static com.company.app.entities.users.tables.User.USER;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.company.app.common.JooqRepository;
-import com.company.app.persistence.tables.records.UserRecord;
+import com.company.app.entities.users.tables.records.UserRecord;
 import com.company.app.users.User.Email;
 
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Repository
 @RequiredArgsConstructor(onConstructor_= {@Autowired})
-public class Users implements JooqRepository<UserRecord> {
+public class UserRepository implements JooqRepository<UserRecord> {
 
     private final DSLContext context;
 

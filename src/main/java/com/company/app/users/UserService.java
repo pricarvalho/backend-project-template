@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(onConstructor_= {@Autowired})
 public class UserService {
 
-    private final Users users;
+    private final UserRepository users;
 
     public User findById(String id) {
         return Optional.ofNullable(id)
