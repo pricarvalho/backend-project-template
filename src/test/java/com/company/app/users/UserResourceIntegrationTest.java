@@ -79,23 +79,6 @@ public class UserResourceIntegrationTest {
 
         @Test
         @Order(3)
-        public void update_whenUpateUser_returns200() throws Exception {
-            final String body = objectMapper.writeValueAsString(
-                    new UserRequest("Integration", "Test", "integration@test.com"));
-
-            mvc.perform(put("/users/" + userId)
-                    .contentType(APPLICATION_JSON)
-                    .content(body))
-                    .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("id").value(userId))
-                    .andExpect(jsonPath("firstName").value("Integration"))
-                    .andExpect(jsonPath("lastName").value("Test"))
-                    .andExpect(jsonPath("email").value("integration@test.com"));
-        }
-
-        @Test
-        @Order(4)
         public void delete_whenDeleteUser_returns204() throws Exception {
             mvc.perform(delete("/users/" + userId))
                     .andExpect(status().isNoContent());

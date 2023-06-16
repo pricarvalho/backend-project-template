@@ -1,11 +1,12 @@
 package com.company.app.meetups;
 
 import java.util.Collection;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.company.app.meetups.Meetup.MeetupCreated;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,14 +14,38 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(onConstructor_ = { @Autowired })
 public class MeetupService {
 
-    private final MeetupRepository meetups;
+	private final MeetupRepository meetups;
 
-    public MeetupCreated create(MeetupRequest request) {
-        return meetups.save(request.toMeetup())
-                .orElseThrow(() -> new IllegalArgumentException("Error to save user"));
-    }
+	public Meetup create(MeetupRequest request) {
+		return Optional.ofNullable(request)
+				.map(MeetupRequest::toCreateMeetup)
+				.flatMap(meetups::save)
+				.orElseThrow(() -> new IllegalArgumentException("Error to save Meetup"));
+	}
 
-	public Collection<MeetupCreated> all() {
+	public Meetup findById(String id) {
+		return Optional.ofNullable(id)
+				.map(UUID::fromString)
+				.flatMap(meetups::findBy)
+				.orElseThrow(() -> new IllegalArgumentException("Meetup not found"));
+	}
+
+	public boolean delete(String id) {
+		return Optional.ofNullable(id)
+				.map(UUID::fromString)
+				.map(meetups::delete)
+				.orElseThrow(() -> new IllegalArgumentException("Error to delete Meetup"));
+	}
+
+	public Meetup update(String id, MeetupRequest request) {
+		return Optional.ofNullable(id)
+				.filter(uuid -> Objects.nonNull(request))
+				.map(UUID::fromString)
+				.flatMap(uuid -> meetups.update(uuid, request.toUpdateMeetup()))
+				.orElseThrow(() -> new IllegalArgumentException("Error to update Meetup"));
+	}
+
+	public Collection<Meetup> all() {
 		return meetups.all();
 	}
 

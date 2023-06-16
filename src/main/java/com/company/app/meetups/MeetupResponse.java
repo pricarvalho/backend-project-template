@@ -1,7 +1,5 @@
 package com.company.app.meetups;
 
-import com.company.app.meetups.Meetup.MeetupCreated;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,12 +22,13 @@ public class MeetupResponse {
 	@NonNull
 	private final String description;
 
-	public static MeetupResponse from(MeetupCreated meetup) {
+	public static MeetupResponse from(Meetup meetup) {
 		return MeetupResponse.builder()
 				.id(meetup.id().toString())
 				.title(meetup.title())
 				.image(meetup.image())
-				.address(meetup.description())
+				.address(meetup.address())
+				.description(meetup.description())
 				.build();
 	}
 
