@@ -16,23 +16,26 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor(access = PRIVATE)
 public class User {
 
+    @NonNull
     private UUID id;
     @NonNull
     private String firstName;
     @NonNull
     private String lastName;
     @NonNull
-    private Email email;
+    private String email;
 
     @Getter()
-    @Builder
+    @Builder(toBuilder = true)
     @Accessors(fluent = true)
     @AllArgsConstructor(access = PRIVATE)
-    public static class Email {
-
+    public static class CreateUser {
         @NonNull
-        private String value;
-
+        private String firstName;
+        @NonNull
+        private String lastName;
+        @NonNull
+        private String email;
     }
 
 }

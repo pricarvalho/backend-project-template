@@ -11,14 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.company.app.common.JooqRepository;
 import com.company.app.entities.users.tables.records.UserRecord;
-import com.company.app.users.User.Email;
+import com.company.app.users.User.CreateUser;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Repository
-@RequiredArgsConstructor(onConstructor_= {@Autowired})
+@RequiredArgsConstructor(onConstructor_ = { @Autowired })
 public class UserRepository implements JooqRepository<UserRecord> {
 
     private final DSLContext context;
@@ -26,52 +26,31 @@ public class UserRepository implements JooqRepository<UserRecord> {
     public Optional<User> findBy(UUID id) {
         return context.selectFrom(USER).where(USER.ID.eq(id))
                 .fetchOptional()
-                .map(record -> User.builder()
-                        .id(record.getId())
-                        .firstName(record.getFirstName())
-                        .lastName(record.getLastName())
-                        .email(Email.builder().value(record.getEmail()).build())
-                        .build());
+                .map(UserRepository::toDomain);
     }
 
     @Transactional
-    public Optional<User> save(User user) {
+    public Optional<User> save(CreateUser user) {
         return context.insertInto(USER)
                 .set(USER.FIRST_NAME, user.firstName())
                 .set(USER.LAST_NAME, user.lastName())
-                .set(USER.EMAIL, user.email().value())
+                .set(USER.EMAIL, user.email())
                 .returning()
-                .fetchOptional(record -> User.builder()
-                        .id(record.getId())
-                        .firstName(record.getFirstName())
-                        .lastName(record.getLastName())
-                        .email(Email.builder().value(record.getEmail()).build())
-                        .build());
-    }
-
-    @Transactional
-    public User update(User user) {
-        val record = context.selectFrom(USER).where(USER.ID.eq(user.id())).fetchOne();
-        record.setFirstName(user.firstName());
-        record.setLastName(user.lastName());
-        record.setEmail(user.email().value());
-
-        return context.update(USER)
-                .set(optimizeColumnsUpdateOf(record))
-                .where(USER.ID.eq(user.id()))
-                .returning()
-                .fetchOptional(updatedRecord -> User.builder()
-                        .id(updatedRecord.getId())
-                        .firstName(updatedRecord.getFirstName())
-                        .lastName(updatedRecord.getLastName())
-                        .email(Email.builder().value(updatedRecord.getEmail()).build())
-                        .build())
-                        .orElse(user);
+                .fetchOptional(UserRepository::toDomain);
     }
 
     public boolean delete(UUID id) {
         val result = context.deleteFrom(USER).where(USER.ID.eq(id)).execute();
         return 1 == result;
+    }
+
+    private static User toDomain(UserRecord record) {
+        return User.builder()
+                        .id(record.getId())
+                        .firstName(record.getFirstName())
+                        .lastName(record.getLastName())
+                        .email(record.getEmail())
+                        .build();
     }
 
 }

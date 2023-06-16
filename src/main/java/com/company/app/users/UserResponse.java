@@ -26,7 +26,7 @@ public class UserResponse {
         .id(user.id().toString())
         .firstName(user.firstName())
         .lastName(user.lastName())
-        .email(user.email().value())
+        .email(user.email())
         .build() ;
     }
 

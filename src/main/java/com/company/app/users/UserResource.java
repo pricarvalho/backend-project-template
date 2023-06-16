@@ -43,11 +43,4 @@ public class UserResource {
         return new ResponseEntity<UserResponse>(UserResponse.from(user), CREATED);
     }
 
-    // curl -X PUT -H 'Content-Type: application/json' -d '{"firstName": "John", "lastName": "Smith", "email": "john.smith@hotmail.com"}' http://localhost:8080/users/{id}
-    @PutMapping("/{id}")
-    public UserResponse update(@PathVariable String id, @RequestBody UserRequest userRequest) {
-        var user = service.update(id, userRequest);
-        return UserResponse.from(user);
-    }
-
 }

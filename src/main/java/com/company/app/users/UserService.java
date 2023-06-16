@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor(onConstructor_= {@Autowired})
+@RequiredArgsConstructor(onConstructor_ = { @Autowired })
 public class UserService {
 
     private final UserRepository users;
@@ -29,16 +29,9 @@ public class UserService {
     }
 
     public User save(UserRequest request) {
-        return users.save(request.toDomain())
+        return Optional.ofNullable(request)
+                .map( x -> request.toCreateUser())
+                .flatMap(users::save)
                 .orElseThrow(() -> new IllegalArgumentException("Error to save user"));
     }
-
-    public User update(String id, UserRequest request) {
-        return Optional.ofNullable(id)
-                .map(UUID::fromString)
-                .map(uuid -> request.toDomain().toBuilder().id(uuid).build())
-                .map(users::update)
-                .orElseThrow(() -> new IllegalArgumentException("Error to update user"));
-    }
-
 }

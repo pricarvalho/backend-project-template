@@ -1,6 +1,6 @@
 package com.company.app.users;
 
-import com.company.app.users.User.Email;
+import com.company.app.users.User.CreateUser;
 
 import lombok.Data;
 import lombok.NonNull;
@@ -15,11 +15,11 @@ public class UserRequest {
     @NonNull
     private String email;
 
-    public User toDomain() {
-        return User.builder()
+    public CreateUser toCreateUser() {
+        return CreateUser.builder()
                 .firstName(firstName)
                 .lastName(lastName)
-                .email(Email.builder().value(email).build())
+                .email(email)
                 .build();
     }
 
